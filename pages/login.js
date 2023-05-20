@@ -86,6 +86,7 @@ export default function Login() {
           </Link>
         </p>
       </section>
-    </>
+      <span className="credit text-white ">Developed by<a href='https://github.com/abhinavsaxena2308' className='text-orange-700' target="next"> Abhinav Saxena</a></span>
+        </>
   );
 }

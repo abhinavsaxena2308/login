@@ -47,11 +47,11 @@ function User({ session, handleSignOut }){
           </div>
 
           <div className="flex justify-center text-white">
-            <button onClick={handleSignOut} className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 bg-gray-50'>Sign Out</button>
+            <button onClick={handleSignOut} className='mt-5 px-10 py-1 rounded-sm bg-orange-500 bg-gray-50'>Sign Out</button>
           </div>
 
           <div className='flex justify-center text-white'>
-            <Link href={'/profile'}><a className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Profile Page</a></Link>
+            <Link href={'/profile'}><a className='mt-5 px-10 py-1 rounded-sm bg-orange-500 text-gray-50'>Profile Page</a></Link>
           </div>
       </main>
   )
