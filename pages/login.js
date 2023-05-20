@@ -85,6 +85,9 @@ export default function Login() {
             <a className="text-orange-900 font-semibold">Sign Up</a>
           </Link>
         </p>
+        <p className='text-center text-gray-400 '>
+            <Link href={'/home'}><a className='text-orange-700'>Home</a></Link>
+            </p>
       </section>
       <span className="credit text-white ">Developed by<a href='https://github.com/abhinavsaxena2308' className='text-orange-700' target="next"> Abhinav Saxena</a></span>
         </>
