@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm i"
+    "build": "next build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
