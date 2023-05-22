@@ -1,29 +1,37 @@
-
 import connectMongo from '../../../database/conn';
-import Users from '../../../model/Schema'
+import Users from '../../../model/Schema';
 import { hash } from 'bcryptjs';
 
-export default async function handler(req, res){
-    connectMongo().catch(error => res.json({ error: "Connection Failed...!"}))
+export default async function handler(req, res) {
+  try {
+    await connectMongo(); // Establish database connection
 
-    // only post method is accepted
-    if(req.method === 'POST'){
+    // Only accept POST method
+    if (req.method === 'POST') {
+      if (!req.body) {
+        return res.status(404).json({ error: "Don't have form data...!" });
+      }
 
-        if(!req.body) return res.status(404).json({ error: "Don't have form data...!"});
-        const { username, email, password } = req.body;
+      const { username, email, password } = req.body;
 
-        // check duplicate users
-        const checkexisting = await Users.findOne({ email });
-        if(checkexisting) return res.status(422).json({ message: "User Already Exists...!"});
+      // Check if user already exists
+      const checkExisting = await Users.findOne({ email });
+      if (checkExisting) {
+        return res.status(422).json({ message: "User Already Exists...!" });
+      }
 
-        // hash password
-        Users.create({ username, email, password : await hash(password, 12)}, function(err, data){
-            if(err) return res.status(404).json({ err });
-            res.status(201).json({ status : true, user: data})
-        })
+      // Hash the password
+      const hashedPassword = await hash(password, 12);
 
-    } else{
-        res.status(500).json({ message: "HTTP method not valid only POST Accepted"})
+      // Create the new user
+      const newUser = await Users.create({ username, email, password: hashedPassword });
+
+      res.status(200).json({ status: true, user: newUser });
+    } else {
+      res.status(500).json({ message: "HTTP method not valid, only POST accepted" });
     }
-
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 }
